@@ -85,7 +85,9 @@ const data = [
 
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
-          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`,
+    manBearPig: `https://upload.wikimedia.org/wikipedia/commons/e/e4/Manbearpig_2014-07-07_05-01.jpg`,
+    manBearPigDesc: `approx height....10ft, dark brown hair, super strength...he's out there...`
   }
 ];
 
@@ -102,7 +104,90 @@ const data = [
 
     <span class="expandButton">+</span>
   </div>
+*/
 
+
+
+function articleMaker(data){
+  
+    
+
+  /* classes other */
+  let div = document.createElement('div');
+  div.classList.add('article');
+
+  let h2 = document.createElement('h2');
+  h2.textContent = data['title'];
+  div.appendChild(h2);
+    
+  let dates = document.createElement('p');
+  dates.textContent = data['date'];
+  dates.classList.add('date');
+  div.appendChild(dates);
+
+
+    /*paragraphs*/
+  let para1 = document.createElement('p');
+  para1.textContent = data['firstParagraph'];
+  div.appendChild(para1);
+
+  let para2 = document.createElement('p');
+  para2.textContent = data['secondParagraph'];
+  div.appendChild(para2);
+
+  let para3 = document.createElement('p');
+  para3.textContent = data['thirdParagraph'];
+  div.appendChild(para3);
+
+
+    /*button*/
+  let button = document.createElement('span');
+  button.classList.add('expandButton');
+  button.textContent = '+';
+  button.style.backgroundColor = 'rgba(255,255,255,.0)'
+  button.style.height = '3.5rem'
+  button.style.fontSize = '2rem';
+  div.appendChild(button);
+
+  button.addEventListener('click', e =>{
+    div.classList.toggle('article-open');
+    div.style.transition = "ease-in-out 0.5s";
+  });
+  button.addEventListener('mouseenter', e =>{
+    e.target.style.color = 'green';
+    e.target.style.fontSize = '2.5rem';
+    e.target.style.transition = 'ease-in-out 0.3s';
+  });
+  button.addEventListener('mouseleave', e =>{
+    e.target.style.color = 'black';
+    e.target.style.fontSize = '2rem';
+    e.target.style.transition = 'ease-in-out 0.3s';
+  })
+  
+  return div;
+};
+
+/* manbearpig */
+
+let art = document.querySelector('.articles');
+art.style.textAlign = 'center'
+
+let manBearPig = document.createElement('img');
+manBearPig.setAttribute('src', data[data.length - 1].manBearPig)
+manBearPig.style.width = '300px';
+manBearPig.style.height = '300px';
+art.appendChild(manBearPig);
+
+let manBearPigDesc = document.createElement('p');
+manBearPigDesc.textContent = data[data.length - 1].manBearPigDesc;
+manBearPigDesc.fontSize = '1rem';
+art.appendChild(manBearPigDesc);
+
+let bigDivy = document.querySelector('.articles'); 
+data.forEach(i =>{
+  bigDivy.appendChild(articleMaker(i))
+})
+/*
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
